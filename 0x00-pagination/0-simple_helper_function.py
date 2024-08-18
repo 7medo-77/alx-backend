@@ -9,6 +9,6 @@ def index_range(page, page_size):
     """
     function returning a range of indexes
     """
-    startIndex = page_size * page
-    endIndex = (page_size * 2) * page
+    startIndex = page_size * (page - 1)
+    endIndex = page_size * page + page_size
     return tuple((startIndex, endIndex))
