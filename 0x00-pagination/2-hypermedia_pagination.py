@@ -48,21 +48,19 @@ class Server:
         return resultList
 
     def get_hyper(self, page: int = 1, page_size: int = 10) -> Dict:
-        with open(self.DATA_FILE) as file:
-            readerObject = csv.reader(file)
-            readerObject.__next__()
-            index = 1
-            for index, line in enumerate(readerObject):
-                index += 1
+        assert isinstance(page, int) and page > 0
+        assert isinstance(page_size, int) and page_size > 0
 
-        # total_pages = (index // page_size) + index % page_size
-        total_pages = math.ceil(index / page_size)
+        length = len(self.dataset())
+        total_pages = math.ceil(length / page_size)
+
         response_dict = {
-            'page_size': page_size if page * page_size <= index else 0,
+            'page_size': page_size if page * page_size <= length else 0,
             'page': page,
             'data': self.get_page(page, page_size),
             'next_page': page + 1 if (page + 1) <= total_pages else None,
             'prev_page': page - 1 if page - 1 > 0 else None,
             'total_pages': total_pages,
         }
+
         return response_dict
