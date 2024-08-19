@@ -48,6 +48,9 @@ class Server:
         return resultList
 
     def get_hyper(self, page: int = 1, page_size: int = 10) -> Dict:
+        """
+        Returns a dictionary object that is HATEOAS compliant
+        """
         assert isinstance(page, int) and page > 0
         assert isinstance(page_size, int) and page_size > 0
 
