@@ -42,7 +42,7 @@ class Server:
             readerObject = csv.reader(file)
             readerObject.__next__()
             for index, line in enumerate(readerObject):
-                if index >= int(indexTuple[0]) and index <= int( indexTuple[1] ):
+                if index >= int(indexTuple[0]) and index < int( indexTuple[1] ):
                     resultList.append(line)
 
         return resultList
