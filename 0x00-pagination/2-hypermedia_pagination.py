@@ -53,11 +53,12 @@ class Server:
 
         length = len(self.dataset())
         total_pages = math.ceil(length / page_size)
+        data = self.get_page(page, page_size)
 
         response_dict = {
-            'page_size': page_size if page * page_size <= length else 0,
+            'page_size': len(data),
             'page': page,
-            'data': self.get_page(page, page_size),
+            'data': data,
             'next_page': page + 1 if (page + 1) <= total_pages else None,
             'prev_page': page - 1 if page - 1 > 0 else None,
             'total_pages': total_pages,
