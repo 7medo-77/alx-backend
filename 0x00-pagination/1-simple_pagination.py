@@ -3,11 +3,11 @@
 Main file
 """
 
-index_range = __import__('0-simple_helper_function').index_range
 
+from typing import List
 import csv
 import math
-from typing import List
+index_range = __import__('0-simple_helper_function').index_range
 
 
 class Server:
@@ -42,7 +42,7 @@ class Server:
             readerObject = csv.reader(file)
             readerObject.__next__()
             for index, line in enumerate(readerObject):
-                if index >= int(indexTuple[0]) and index < int( indexTuple[1] ):
+                if index >= indexTuple[0] and index < indexTuple[1]:
                     resultList.append(line)
 
         return resultList
