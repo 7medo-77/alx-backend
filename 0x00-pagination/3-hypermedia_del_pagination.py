@@ -56,12 +56,19 @@ class Server:
 
         # print(start_index, end_index)
         for index_num in range(start_index, end_index):
-            if data_indexed.get(index_num):
+            try:
                 data_list.append(data_indexed[index_num])
                 # print(index_num)
-            else:
+            except KeyError:
                 index_num += 1
                 end_index += 1
+
+            # if data_indexed.get(index_num):
+            #     data_list.append(data_indexed[index_num])
+            #     # print(index_num)
+            # else:
+            #     index_num += 1
+            #     end_index += 1
 
         response_dict = {
             'index': index,
