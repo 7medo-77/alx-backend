@@ -41,28 +41,54 @@ class Server:
         return self.__indexed_dataset
 
     def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict:
-        assert 0 <= index <= len(self.__indexed_dataset)
+        # assert 0 <= index <= len(self.indexed_dataset())
+        # assert isinstance(page_size, int) and page_size > 0
+        #
+        # start_index = index if index else 0
+        # end_index = index + page_size
+        # data_indexed = self.indexed_dataset() if not self.__indexed_dataset else self.__indexed_dataset
+        # data_list = []
+        #
+        # # print(start_index, end_index)
+        # for index_num in range(start_index, end_index):
+        #     if data_indexed.get(index_num):
+        #         data_list.append(data_indexed[index_num])
+        #         # print(index_num)
+        #     else:
+        #         index_num += 1
+        #         end_index += 1
+        #
+        # response_dict = {
+        #     'index': index,
+        #     'data': data_list,
+        #     'page_size': page_size,
+        #     'next_index': end_index,
+        # }
+        #
+        # return response_dict
+
+        """ return all data"""
+        if index is None:
+            index = 0
+
+        # validate the index
+        assert isinstance(index, int)
+        assert 0 <= index < len(self.indexed_dataset())
         assert isinstance(page_size, int) and page_size > 0
 
-        start_index = index if index else 0
-        end_index = index + page_size
-        data_indexed = self.indexed_dataset() if not self.__indexed_dataset else self.__indexed_dataset
-        data_list = []
+        data = []  # collect all indexed data
+        next_index = index + page_size
 
-        # print(start_index, end_index)
-        for index_num in range(start_index, end_index):
-            if data_indexed.get(index_num):
-                data_list.append(data_indexed[index_num])
-                # print(index_num)
+        for value in range(index, next_index):
+            if self.indexed_dataset().get(value):
+                data.append(self.indexed_dataset()[value])
             else:
-                index_num += 1
-                end_index += 1
+                value += 1
+                next_index += 1
 
-        response_dict = {
+        return {
             'index': index,
-            'data': data_list,
+            'data': data,
             'page_size': page_size,
-            'next_index': end_index,
+            'next_index': next_index
         }
-
-        return response_dict
