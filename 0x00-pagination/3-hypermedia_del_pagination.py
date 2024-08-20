@@ -44,7 +44,6 @@ class Server:
         """
         Returns object with data, resistant to deletion
         """
-
         assert 0 <= index <= len(self.indexed_dataset())
         assert isinstance(page_size, int) and page_size > 0
 
@@ -63,13 +62,6 @@ class Server:
                 index_num += 1
                 end_index += 1
 
-            # if data_indexed.get(index_num):
-            #     data_list.append(data_indexed[index_num])
-            #     # print(index_num)
-            # else:
-            #     index_num += 1
-            #     end_index += 1
-
         response_dict = {
             'index': index,
             'data': data_list,
@@ -78,28 +70,3 @@ class Server:
         }
 
         return response_dict
-
-        # if index is None:
-        #     index = 0
-        #
-        # # validate the index
-        # assert isinstance(index, int)
-        # assert 0 <= index < len(self.indexed_dataset())
-        # assert isinstance(page_size, int) and page_size > 0
-        #
-        # data = []  # collect all indexed data
-        # next_index = index + page_size
-        #
-        # for value in range(index, next_index):
-        #     if self.indexed_dataset().get(value):
-        #         data.append(self.indexed_dataset()[value])
-        #     else:
-        #         value += 1
-        #         next_index += 1
-        #
-        # return {
-        #     'index': index,
-        #     'data': data,
-        #     'page_size': page_size,
-        #     'next_index': next_index
-        # }
