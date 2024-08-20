@@ -46,7 +46,8 @@ class Server:
         #
         # start_index = index if index else 0
         # end_index = index + page_size
-        # data_indexed = self.indexed_dataset() if not self.__indexed_dataset else self.__indexed_dataset
+        # data_indexed = self.indexed_dataset() if not\
+        # self.__indexed_dataset else self.__indexed_dataset
         # data_list = []
         #
         # # print(start_index, end_index)
