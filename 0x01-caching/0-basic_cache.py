@@ -8,6 +8,11 @@ BaseCaching = __import__("base_cahing").BaseCaching
 
 
 class BasicCache(BaseCaching):
+    """
+    Class inheriting from BaseCahing
+    """
+
+
     def __init__(self):
         """
         init method which is inherited from parent
