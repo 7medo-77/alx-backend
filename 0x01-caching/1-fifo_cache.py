@@ -23,7 +23,7 @@ class FIFOCache(BaseCaching):
         """
         overriding put method from parent
         """
-        if not key or not item or key in self.cache_data:
+        if not key or not item:
             pass
 
         if len(list(self.cache_data.keys())) < 4:
