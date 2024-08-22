@@ -29,13 +29,13 @@ class FIFOCache(BaseCaching):
         if len(list(self.cache_data.keys())) < 4:
             # self.fifo_array.append({ key: item })
             self.cache_data[key] = item
-        # elif len(self.fifo_array) == 4 and { key: item } not in self.cache_data.items():
         elif len(list(self.cache_data.keys())) == 4:
             if key in self.cache_data:
                 self.cache_data[key] = item
             else:
-                print('DISCARD: {}'.format(list(self.cache_data.keys())[0]))
-                self.cache_data.pop(list(self.cache_data.keys())[0])
+                discard_key = list(self.cache_data.keys())[0]
+                print('DISCARD: {}'.format(discard_key))
+                self.cache_data.pop(discard_key)
                 self.cache_data[key] = item
                 assert len(list(self.cache_data.keys())) == 4, "somethingwrong"
 
