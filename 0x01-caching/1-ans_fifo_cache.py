@@ -27,7 +27,7 @@ self.cache_data, return None.
 BaseCaching = __import__('base_caching').BaseCaching
 
 
-class ans_FIFOCache(BaseCaching):
+class FIFOCache(BaseCaching):
     """_summary_
     """
 

@@ -24,12 +24,12 @@ class FIFOCache(BaseCaching):
         overriding put method from parent
         """
         if not key or not item:
-            pass
+            return
 
-        if len(list(self.cache_data.keys())) < 4:
+        if len(list(self.cache_data.keys())) < self.MAX_ITEMS:
             # self.fifo_array.append({ key: item })
             self.cache_data[key] = item
-        elif len(list(self.cache_data.keys())) == 4:
+        elif len(list(self.cache_data.keys())) == self.MAX_ITEMS:
             if key in self.cache_data:
                 self.cache_data[key] = item
             else:
@@ -37,7 +37,7 @@ class FIFOCache(BaseCaching):
                 print('DISCARD: {}'.format(discard_key))
                 self.cache_data.pop(discard_key)
                 self.cache_data[key] = item
-                assert len(list(self.cache_data.keys())) == 4, "somethingwrong"
+                assert len(list(self.cache_data.keys())) == self.MAX_ITEMS, "somethingwrong"
 
     def get(self, key):
         """
