@@ -24,20 +24,21 @@ class LIFOCache(BaseCaching):
         overriding put method from parent
         """
         if not key or not item:
-            pass
+            return
 
         if key in self.cache_data:
-                del self.cache_data[key]
-                self.cache_data[key] = item
+            del self.cache_data[key]
+            self.cache_data[key] = item
         else:
-            if len(list(self.cache_data.keys())) < 4:
-                    self.cache_data[key] = item
-            elif len(list(self.cache_data.keys())) == 4:
+            if len(list(self.cache_data.keys())) < self.MAX_ITEMS:
+                self.cache_data[key] = item
+            elif len(list(self.cache_data.keys())) == self.MAX_ITEMS:
                 discard_key = list(self.cache_data.keys())[-1]
                 print('DISCARD: {}'.format(discard_key))
                 self.cache_data.pop(discard_key)
                 self.cache_data[key] = item
-                assert len(list(self.cache_data.keys())) == 4, "somethingwrong"
+                assert len(list(self.cache_data.keys())) \
+                    == self.MAX_ITEMS, "somethingwrong"
 
     def get(self, key):
         """
