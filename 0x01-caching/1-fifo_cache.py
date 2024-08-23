@@ -37,7 +37,8 @@ class FIFOCache(BaseCaching):
                 print('DISCARD: {}'.format(discard_key))
                 self.cache_data.pop(discard_key)
                 self.cache_data[key] = item
-                assert len(list(self.cache_data.keys())) == self.MAX_ITEMS, "somethingwrong"
+                assert len(list(self.cache_data.keys())) == self.MAX_ITEMS, \
+                    "sumtingwong"
 
     def get(self, key):
         """
