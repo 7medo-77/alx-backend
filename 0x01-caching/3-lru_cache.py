@@ -7,7 +7,7 @@ Module defining class BasicCache
 BaseCaching = __import__('base_caching').BaseCaching
 
 
-class LIFOCache(BaseCaching):
+class LRUCache(BaseCaching):
     """
     Class inheriting from BaseCahing
     """
@@ -17,7 +17,7 @@ class LIFOCache(BaseCaching):
         init method which is inherited from parent
         """
         super().__init__()
-        self.fifo_array = []
+        self.freq_dict = {}
 
     def put(self, key, item):
         """
@@ -32,11 +32,28 @@ class LIFOCache(BaseCaching):
         else:
             if len(list(self.cache_data.keys())) < self.MAX_ITEMS:
                 self.cache_data[key] = item
+                self.freq_dict[key] = 1
+                for key_dict in self.freq_dict.keys():
+                    if key_dict != key:
+                        self.freq_dict[key_dict] += 1
             elif len(list(self.cache_data.keys())) == self.MAX_ITEMS:
-                discard_key = list(self.cache_data.keys())[-1]
+                ordered_dict = sorted(list(self.freq_dict.items()), \
+                                      key=lambda tup: tup[1], reverse=True)
+                discard_key = ordered_dict[0][0]
+                # print('-'* 50)
                 print('DISCARD: {}'.format(discard_key))
+                # print('self.freq_dict: {}'.format(ordered_dict))
+
                 self.cache_data.pop(discard_key)
+                self.freq_dict.pop(discard_key)
+
                 self.cache_data[key] = item
+                self.freq_dict[key] = 1
+
+                for key_dict in self.freq_dict.keys():
+                    if key_dict != key:
+                        self.freq_dict[key_dict] += 1
+
                 assert len(list(self.cache_data.keys())) \
                     == self.MAX_ITEMS, "somethingwrong"
 
@@ -47,4 +64,6 @@ class LIFOCache(BaseCaching):
         if not key or key not in self.cache_data.keys():
             return None
         else:
+            self.freq_dict[key] = 0
             return self.cache_data[key]
+
