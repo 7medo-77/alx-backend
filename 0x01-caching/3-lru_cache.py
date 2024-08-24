@@ -37,7 +37,7 @@ class LRUCache(BaseCaching):
                     if key_dict != key:
                         self.freq_dict[key_dict] += 1
             elif len(list(self.cache_data.keys())) == self.MAX_ITEMS:
-                ordered_dict = sorted(list(self.freq_dict.items()), \
+                ordered_dict = sorted(list(self.freq_dict.items()),
                                       key=lambda tup: tup[1], reverse=True)
                 discard_key = ordered_dict[0][0]
                 # print('-'* 50)
@@ -66,4 +66,3 @@ class LRUCache(BaseCaching):
         else:
             self.freq_dict[key] = 0
             return self.cache_data[key]
-
